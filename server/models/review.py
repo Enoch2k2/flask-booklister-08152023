@@ -10,5 +10,16 @@ class Review(db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, ForeignKey("users.id"))
     game_id = db.Column(db.Integer, ForeignKey("games.id"))
 
+    user = db.relationship("User", back_populates="reviews")
+    game = db.relationship("Game", back_populates="reviews")
+
+    serialize_rules = (
+        "-user.games",
+        "-user.reviews",
+        "-user._password_hash",
+        "-game.users",
+        "-game.reviews"
+    )
+
     def __repr__(self):
         return f'<Review { self.id } { self.content }>'
