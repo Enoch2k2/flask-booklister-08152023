@@ -1,5 +1,6 @@
 from config import db
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.orm import validates
 
 
 class Game(db.Model, SerializerMixin):
@@ -20,10 +21,15 @@ class Game(db.Model, SerializerMixin):
         "-reviews.user.reviews",
         "-reviews.user.games",
         "-reviews.user._password_hash",
-        "-users.reviews",
-        "-users.games",
-        "-users._password_hash"
+        "-users"
     )
+
+    @validates("title")
+    def validate_title(self, key, title):
+        if not title:
+            raise ValueError("Title Must Exist")
+
+        return title
 
     def __repr__(self):
         return f'<Game { self.id } { self.title }>'
