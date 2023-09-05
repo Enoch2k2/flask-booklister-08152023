@@ -1,6 +1,7 @@
 from config import db
 from sqlalchemy import ForeignKey
 from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.orm import validates
 
 
 class Review(db.Model, SerializerMixin):
@@ -20,6 +21,12 @@ class Review(db.Model, SerializerMixin):
         "-game.users",
         "-game.reviews"
     )
+
+    @validates("content")
+    def validates_content(self, key, content):
+        if not content:
+            raise ValueError(f'{key} must exist')
+        return content
 
     def __repr__(self):
         return f'<Review { self.id } { self.content }>'

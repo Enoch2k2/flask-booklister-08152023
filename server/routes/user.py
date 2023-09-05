@@ -16,7 +16,8 @@ class UsersResource(Resource):
         password = data.get("password")
 
         try:
-            user = User(username=username, _password_hash=password)
+            user = User(username=username)
+            user.password_hash = password
 
             db.session.add(user)
             db.session.commit()

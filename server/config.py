@@ -3,6 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_restful import Api
 from sqlalchemy import MetaData
+from flask_bcrypt import Bcrypt
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 convention = {
     "ix": "ix_%(column_0_label)s",
@@ -13,10 +18,9 @@ convention = {
 }
 
 metadata = MetaData(naming_convention=convention)
-
 app = Flask(__name__)
-app.secret_key = "533c9530e51d479eab586492dbb81c22"
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///app.db'
+app.secret_key = os.environ.get("FLASK_SECRET_KEY")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app, metadata=metadata)
@@ -26,3 +30,5 @@ db = SQLAlchemy(app, metadata=metadata)
 migrate = Migrate(app=app, db=db)
 
 api = Api(app)
+
+bcrypt = Bcrypt(app)

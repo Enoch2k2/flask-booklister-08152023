@@ -35,3 +35,30 @@ At least one string/number format validation.
 Have at least three different client-side routes using React Router. Be sure to include a nav bar or other UI element that allows users to navigate between routes.
 Connect the client and server using fetch().
 
+
+
+Questions:
+
+What is an API?
+  * Application Programming Interface, access to data from a public third party tool?
+What is ReSTful?
+  * A convention for setting up routes to utilize CRUD actions.
+     Index GET /resources (plural) READ a list of the resource we are wanting to get data from
+     Create POST /resources CREATE this creates a resource
+     Show GET /resources/<int:id> READ a more information route, one specific resource
+     Update PATCH /resources/<int:id> Update for updating a resource in our database
+     Destroy DELETE /resources/<int:id> DELETE for a resource
+What is serialization?
+  * Formatting data for transfer
+How do we complete a sqlalchemy transaction?
+  * db.session.add() NOTE: add_all
+  * db.session.commit()
+How do we create migrations?
+  * db.Model, id column, tablename
+  * flask db revision --autogenerate -m 'message stuff'
+  * flask db upgrade head
+What do we use for validations in the client side?
+  * Formik and Yup
+
+
+

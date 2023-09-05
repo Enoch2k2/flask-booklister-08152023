@@ -15,16 +15,18 @@ if __name__ == '__main__':
 
         bob = User(
             username="Bob",
-            _password_hash="testtest"
         )
+        bob.password_hash = "testtest"
+
         sarah = User(
             username="Sarah",
-            _password_hash="testtest"
         )
+        sarah.password_hash = "testtest"
+
         notBob = User(
             username="NotBob",
-            _password_hash="testtest"
         )
+        notBob.password_hash = "testtest"
 
         db.session.add_all([bob, sarah, notBob])
         db.session.commit()
