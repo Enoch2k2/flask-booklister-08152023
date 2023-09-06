@@ -1,23 +1,24 @@
 import React, { useState } from 'react'
 
 const Signup = ({ login }) => {
+  
   const [values, setValues] = useState({
     username: "",
     password: ""
   })
-
+    
   const handleChange = e => {
     setValues({
-      ...values,
-      [e.target.name]: e.target.value
-    })
-  }
-
+        ...values,
+        [e.target.name]: e.target.value
+      })
+    }
+        
   const handleSubmit = e => {
     e.preventDefault()
     login(values)
   }
-
+        
   return (
     <div>
       <h1>Create Account</h1>
