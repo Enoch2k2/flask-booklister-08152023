@@ -14,7 +14,7 @@ class CheckSession(Resource, SerializerMixin):
             user = User.query.filter_by(id=id).first()
             return user.to_dict(), 200
         # return the current user if it exist
-        return {}, 200
+        return {}, 204
         # otherwise return an empty response
 
 

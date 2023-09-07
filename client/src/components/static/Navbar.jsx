@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { UserContext } from '../../context/UserContext'
 
-const Navbar = ({ loggedIn, logout }) => {
+const Navbar = () => {
+  const { loggedIn, logout } = useContext(UserContext)
 
   const handleLogout = e => {
     e.preventDefault();
-
+    fetch('/api/logout', {
+      method: "DELETE"
+    })
     logout()
   }
 

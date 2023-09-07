@@ -4,29 +4,22 @@ import Home from './components/static/Home';
 import Signup from './components/sessions/Signup';
 import Login from './components/sessions/Login';
 import Navbar from './components/static/Navbar';
+import { UserProvider } from './context/UserContext';
+import { GamesProvider } from './context/GamesContext';
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  const login = (user) => {
-    setCurrentUser(user);
-    setLoggedIn(true);
-  }
-
-  const logout = () => {
-    setCurrentUser(null);
-    setLoggedIn(false);
-  }
-  
+function App() {  
   return (
     <Router>
-      <Navbar logout={ logout } loggedIn={ loggedIn } />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<Signup login={ login } />} />
-        <Route path="/login" element={<Login login={ login } />} />
-      </Routes>
+      <UserProvider>
+        <GamesProvider>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </GamesProvider>
+      </UserProvider>
     </Router>
   );
 }
