@@ -15,8 +15,9 @@ const Navbar = () => {
 
   const displayedLinks = loggedIn ? <>
     <li><Link to="#" onClick={ handleLogout }>Logout</Link></li>
-    <li>Games</li>
-    <li>My Reviews</li>
+    <li><Link to="/games">Games</Link></li>
+    <li><Link to="/games/new">Create Game</Link></li>
+    <li><Link to="/my-reviews">My Reviews</Link></li>
   </> : <>
     <li><Link to="/signup">Signup</Link></li>
     <li><Link to="/login">Login</Link></li>

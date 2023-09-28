@@ -1,8 +1,10 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useContext } from "react";
+import { LoadingContext } from "./LoadingContext";
 
 const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
+  const { setLoading } = useContext(LoadingContext)
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -10,7 +12,12 @@ const UserProvider = ({ children }) => {
     fetch('/api/check_session')
       .then(resp => {
         if(resp.status == 200) {
-          resp.json().then(data => login(data))
+          resp.json().then(data => {
+            login(data)
+            setLoading(false)
+          })
+        } else {
+          setLoading(false)
         }
       })
   }, [])
@@ -25,7 +32,17 @@ const UserProvider = ({ children }) => {
     setLoggedIn(false);
   }
 
-  return <UserContext.Provider value={{currentUser, loggedIn, login, logout}}>{ children }</UserContext.Provider>
+  const addUserReview = (review) => {
+    const updatedReviews = [...currentUser.reviews, review] // add data, spread operator
+    const editedUser = {
+      ...currentUser,
+      reviews: updatedReviews
+    }
+
+    setCurrentUser(editedUser)
+  }
+
+  return <UserContext.Provider value={{currentUser, loggedIn, login, logout, addUserReview }}>{ children }</UserContext.Provider>
 }
 
 

@@ -13,6 +13,11 @@ from routes.helpers import login_authorization
 
 
 class ReviewsResource(Resource):
+    def get(self):
+        reviews = Review.query.all()
+        review_dicts = [review.to_dict() for review in reviews]
+        return review_dicts, 200
+
     def post(self):
         if not login_authorization():
             return {'error': 'not authorized'}, 401

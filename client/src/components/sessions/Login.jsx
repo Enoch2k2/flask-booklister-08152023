@@ -44,7 +44,7 @@ const Login = () => {
   const displayErrors = (error) => {
     return error ? <p style={{ color: "red" }}>{ error }</p> : null
   }
-  
+
   return (
     <div>
       <h1>Login</h1>

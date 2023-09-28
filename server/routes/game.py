@@ -34,3 +34,6 @@ api.add_resource(GamesResource, "/api/games")
 # GET /games/<int:id> gives us one game READ
 # PATCH /games/<int:id> updating a game
 # DELETE /games/<int:id> destroying a game
+
+
+# create a route that returns all the games sorted in alphabetical order?

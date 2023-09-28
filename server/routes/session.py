@@ -6,7 +6,7 @@ from models.models import User
 from sqlalchemy.exc import IntegrityError
 
 
-class CheckSession(Resource, SerializerMixin):
+class CheckSession(Resource):
     def get(self):
         # grab the current user if session user_id exist
         id = session.get("user_id")
@@ -18,7 +18,7 @@ class CheckSession(Resource, SerializerMixin):
         # otherwise return an empty response
 
 
-class Signup(Resource, SerializerMixin):
+class Signup(Resource):
     def post(self):
         # grab the form data (json)
         data = request.get_json()
@@ -42,7 +42,7 @@ class Signup(Resource, SerializerMixin):
             return {'error': str(err)}, 422
 
 
-class Logout(Resource, SerializerMixin):
+class Logout(Resource):
     def delete(self):
         if session.get("user_id"):
             del session["user_id"]
@@ -51,7 +51,7 @@ class Logout(Resource, SerializerMixin):
             return {'error': 'You are already logged out'}, 401
 
 
-class Login(Resource, SerializerMixin):
+class Login(Resource):
     def post(self):
         # we want to get the json data
         data = request.get_json()

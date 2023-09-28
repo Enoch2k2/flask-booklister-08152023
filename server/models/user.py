@@ -15,8 +15,7 @@ class User(db.Model, SerializerMixin):
                             back_populates="users")
 
     serialize_rules = (
-        "-games.reviews",
-        "-games.users",
+        "-games",
         "-reviews.user"
     )
 
