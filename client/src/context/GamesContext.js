@@ -38,7 +38,51 @@ const GamesProvider = ({ children }) => {
     setGames(updatedGames)
   }
 
-  return <GamesContext.Provider value={{ games, addGame, addReview }}>{ children }</GamesContext.Provider>
+  const editReview = (updatedReview) => {
+    const game = games.find(game => game.id === updatedReview.game_id)
+    const updatedReviews = game.reviews.map(review => {
+      if(review.id === updatedReview.id) {
+        return updatedReview
+      } else {
+        return review
+      }
+    })
+    const updatedGame = {
+      ...game,
+      reviews: updatedReviews
+    }
+
+    const updatedGames = games.map(game => {
+      if(game.id === updatedGame.id) {
+        return updatedGame
+      } else {
+        return game
+      }
+    })
+
+    setGames(updatedGames)
+  }
+
+  const deleteReview = deletedReview => {
+    const game = games.find(game => game.id === deletedReview.game_id)
+    const updatedReviews = game.reviews.filter(review => review.id !== deletedReview.id)
+    const updatedGame = {
+      ...game,
+      reviews: updatedReviews
+    }
+
+    const updatedGames = games.map(game => {
+      if(game.id === updatedGame.id) {
+        return updatedGame
+      } else {
+        return game
+      }
+    })
+
+    setGames(updatedGames)
+  }
+
+  return <GamesContext.Provider value={{ games, addGame, addReview, editReview, deleteReview }}>{ children }</GamesContext.Provider>
 }
 
 export { GamesContext, GamesProvider };

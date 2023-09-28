@@ -41,8 +41,36 @@ const UserProvider = ({ children }) => {
 
     setCurrentUser(editedUser)
   }
+  
+  const editUserReview = updatedReview => {
+    const updatedReviews = currentUser.reviews.map( review => {
+      if(review.id === updatedReview.id) {
+        return updatedReview
+      } else {
+        return review
+      }
+    })
+    
+    const editedUser = {
+      ...currentUser,
+      reviews: updatedReviews
+    }
+  
+    setCurrentUser(editedUser)
+  }
 
-  return <UserContext.Provider value={{currentUser, loggedIn, login, logout, addUserReview }}>{ children }</UserContext.Provider>
+  const deleteUserReview = updatedReview => {
+    const updatedReviews = currentUser.reviews.filter(review => review.id !== updatedReview.id)
+
+    const editedUser = {
+      ...currentUser,
+      reviews: updatedReviews
+    }
+  
+    setCurrentUser(editedUser)
+  }
+
+  return <UserContext.Provider value={{currentUser, loggedIn, login, logout, addUserReview, editUserReview, deleteUserReview }}>{ children }</UserContext.Provider>
 }
 
 

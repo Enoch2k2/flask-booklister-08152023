@@ -1,19 +1,27 @@
-import React, { useContext, useState } from 'react'
-import { headers } from '../../Globals';
+import React, { useContext } from 'react'
+import { headers, showFormikError } from '../../Globals';
 import { GamesContext } from '../../context/GamesContext';
 import { UserContext } from '../../context/UserContext';
+import * as yup from 'yup'
+import { useFormik } from 'formik'
 
 const ReviewForm = ({ game }) => {
-  const [content, setContent] = useState("")
   const { addReview } = useContext(GamesContext);
   const { addUserReview } = useContext(UserContext);
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const initialValues = {
+    content: ''
+  }
+
+  const validationSchema = yup.object({
+    content: yup.string().required()
+  })
+
+  const handleSubmit = values => {
 
     const gameData = {
       game_id: game.id,
-      content
+      content: values.content
     }
 
     fetch('/api/reviews', {
@@ -33,11 +41,16 @@ const ReviewForm = ({ game }) => {
       })
   }
 
-
+  const formik = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: handleSubmit
+  })
 
   return (
-    <form onSubmit={ handleSubmit }>
-      <textarea name="content" id="content" value={ content } onChange={ e => setContent( e.target.value ) } rows={10} cols={70} />
+    <form onSubmit={ formik.handleSubmit }>
+      <textarea name="content" id="content" value={ formik.values.content } onChange={ formik.handleChange } rows={10} cols={70} />
+      { showFormikError(formik.errors.content) }
       <br />
       <input type="submit" value="Create Review" />
     </form>

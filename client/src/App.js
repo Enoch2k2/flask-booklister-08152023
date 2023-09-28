@@ -11,6 +11,7 @@ import { LoadingContext } from './context/LoadingContext';
 import GameForm from './components/games/GameForm';
 import GameList from './components/games/GameList';
 import GameDetails from './components/games/GameDetails';
+import EditReview from './components/reviews/EditReview';
 
 function App() {
   const { loading } = useContext(LoadingContext);
@@ -29,6 +30,7 @@ function App() {
               <Route path="/games/new" element={<GameForm />} />
               <Route path="/games" element={<GameList />} />
               <Route path="/games/:id" element={<GameDetails />} />
+              <Route path="/reviews/:id/edit" element={<EditReview />} />
             </Routes> }
           </GamesProvider>
         </UserProvider>
