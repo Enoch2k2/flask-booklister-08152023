@@ -47,6 +47,7 @@ const GamesProvider = ({ children }) => {
         return review
       }
     })
+
     const updatedGame = {
       ...game,
       reviews: updatedReviews

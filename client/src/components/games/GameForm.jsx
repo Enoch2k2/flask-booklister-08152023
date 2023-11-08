@@ -1,30 +1,33 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { headers, showFormikError } from '../../Globals'
 import { GamesContext } from '../../context/GamesContext'
 import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup'
 import { useFormik } from 'formik'
 
-
 const GameForm = () => {
   const { addGame } = useContext(GamesContext);
+  // const [values, setValues] = useState({
+  //   title: "",
+  //   description: "",
+  //   image_url: ""
+  // })
 
   const navigate = useNavigate()
 
-  const initialValues = {
-    title: "",
-    image_url: "",
-    description: ""
-  }
-
   const validationSchema = yup.object({
-    title: yup.string().required(),
-    image_url: yup.string(),
-    description: yup.string()
+    title: yup.string().min(3).required("Must exist"),
+    description: yup.string("Must be a non italian string of lipsom").required(),
+    image_url: yup.string().required()
   })
 
-  const handleSubmit = values => {
+  const initialValues = {
+    title: "",
+    description: "",
+    image_url: ""
+  }
 
+  const handleSubmit = values => {
     fetch('/api/games', {
       method: "POST",
       headers,
@@ -66,7 +69,7 @@ const GameForm = () => {
           { showFormikError( formik.errors.image_url ) }
         </div>
 
-        <input type="submit" value="Create Game" />
+        <input type="submit" value="Create Game" disabled={Object.keys(formik.errors).length > 0 ? true : false } />
       </form>
     </div>
   )

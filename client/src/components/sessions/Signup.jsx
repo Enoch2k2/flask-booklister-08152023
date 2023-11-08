@@ -1,11 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import * as yup from 'yup'
 import { useFormik } from 'formik';
 import { UserContext } from '../../context/UserContext';
 import { headers } from '../../Globals';
 
-const Signup = () => {
+const Signup = ({setError}) => {
   const { login } = useContext(UserContext)
+
+  useEffect(() => {
+    // returned functions are for clean up while unmounting the component
+    return cleanup
+  }, [])
+
+  const cleanup = () => {
+    setError(null)
+  }
   
   const handleSubmit = values => {
     fetch('/api/signup', {
@@ -17,7 +26,7 @@ const Signup = () => {
         if(resp.status == 201) {
           resp.json().then(data => login(data))
         } else {
-          resp.json().then(data => console.log(data.error));
+          resp.json().then(data => setError(data.error));
         }
       })
   }
