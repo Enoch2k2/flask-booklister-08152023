@@ -15,6 +15,7 @@ python-dotenv = "*"
 flask-cors = "*"
 gunicorn = "*"
 honcho = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
