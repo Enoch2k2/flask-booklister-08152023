@@ -10,7 +10,7 @@ const Signup = ({setError}) => {
   useEffect(() => {
     // returned functions are for clean up while unmounting the component
     return cleanup
-  }, [])
+  }, [cleanup])
 
   const cleanup = () => {
     setError(null)
