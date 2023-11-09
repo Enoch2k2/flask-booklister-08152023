@@ -11,7 +11,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     fetch('/api/check_session')
       .then(resp => {
-        if(resp.status == 200) {
+        if(resp.status === 200) {
           resp.json().then(data => {
             login(data)
             setLoading(false)
@@ -20,7 +20,7 @@ const UserProvider = ({ children }) => {
           setLoading(false)
         }
       })
-  }, [])
+  }, [setLoading])
 
   const login = (user) => {
     setCurrentUser(user);

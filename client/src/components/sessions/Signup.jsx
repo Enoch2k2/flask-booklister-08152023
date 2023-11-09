@@ -23,7 +23,7 @@ const Signup = ({setError}) => {
       body: JSON.stringify(values)
     })
       .then(resp => {
-        if(resp.status == 201) {
+        if(resp.status === 201) {
           resp.json().then(data => login(data))
         } else {
           resp.json().then(data => setError(data.error));

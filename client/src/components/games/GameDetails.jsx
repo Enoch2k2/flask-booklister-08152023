@@ -18,7 +18,7 @@ const GameDetails = () => {
   return !game ? <p>loding....</p> : (
     <div>
       <h1>{ game.title }</h1>
-      <img src={ game.image_url } alt={`Image of ${game.title} case art`} />
+      <img src={ game.image_url } alt={`${game.title} case art`} />
       <p>{ game.description }</p>
       <div>
         { loggedIn ? (<>

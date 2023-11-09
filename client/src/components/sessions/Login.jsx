@@ -16,7 +16,7 @@ const Login = () => {
       body: JSON.stringify(values)
     })
       .then(resp => {
-        if(resp.status == 200) {
+        if(resp.status === 200) {
           resp.json().then(data => {
             login(data)
             navigate("/")
